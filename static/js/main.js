@@ -7,16 +7,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // --- EXISTING: Theme switch logic ---
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeToggleText = document.getElementById('theme-toggle-text');
     const html = document.documentElement;
 
-    themeToggleBtn.addEventListener('click', () => {
+    themeToggleText.addEventListener('click', () => {
         if (html.classList.contains('dark-mode')) {
             html.classList.remove('dark-mode');
-            themeToggleBtn.textContent = 'Switch to Dark Mode';
+            themeToggleText.textContent = 'Switch to Dark Mode';
         } else {
             html.classList.add('dark-mode');
-            themeToggleBtn.textContent = 'Switch to Light Mode';
+            themeToggleText.textContent = 'Switch to Light Mode';
         }
     });
 

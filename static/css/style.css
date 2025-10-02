@@ -14,19 +14,6 @@
     --mouse-y: 50%;
 }
 
-/* Dark Mode Variables */
-:root.dark-mode {
-    --primary-dark: #121212;
-    --primary-light: #1e1e1e;
-    --accent-gold: #d4af37;
-    --background-dark: #121212;
-    --text-dark: #f0f0f0;
-    --text-light: #1e1e1e;
-    --border-color: #444;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -127,19 +114,7 @@ body::before {
 }
 
 .theme-switch-container {
-    text-align: right;
-    margin-bottom: 20px;
-    user-select: none;
-}
-#theme-toggle-text {
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-#theme-toggle-text:hover {
-    opacity: 1;
+    display: none; /* Hide the theme switch container */
 }
 
 h2 {
@@ -188,12 +163,8 @@ h2 {
 .form-group small {
     display: block;
     margin-top: 8px;
-    color: #888;
-    font-size: 12px;
-}
-/* Dark Mode specific small text color */
-:root.dark-mode .form-group small {
     color: #bbb;
+    font-size: 12px;
 }
 
 .button, button {
@@ -246,12 +217,8 @@ button:disabled {
 }
 .stat-label {
     font-size: 14px;
-    color: #888;
-    display: block;
-}
-/* Dark mode specific stat label color */
-:root.dark-mode .stat-label {
     color: #bbb;
+    display: block;
 }
 .stat-value {
     font-size: 24px;

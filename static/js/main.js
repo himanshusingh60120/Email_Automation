@@ -91,7 +91,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 const result = await response.json();
-                finalReportData.push(result);
+                
+                // --- MODIFIED: Removed 'catch_all' from the data push ---
+                finalReportData.push({
+                    recipient_email: result.recipient_email,
+                    sender_email: result.sender_email,
+                    timestamp: result.timestamp,
+                    status: result.status,
+                    reason: result.reason
+                });
 
                 if (response.ok) {
                     if (result.status === 'Success') {
@@ -105,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     recipient_email: recipient.Email,
                     sender_email: sender.email,
                     timestamp: new Date().toISOString(),
-                    catch_all: false,
                     status: 'Failed',
                     reason: 'Network error or server unreachable'
                 });

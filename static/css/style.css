@@ -1,23 +1,30 @@
 /* static/css/style.css */
 :root {
-    --primary-dark: #0a2351;
+    --primary-dark: #1f375f;
     --primary-light: #1d3a75;
     --accent-gold: #d4af37;
-    --background-light: #f4f7fc;
-    --text-dark: #333;
+    --background-dark: #1a1a2e;
+    --text-dark: #f0f0f0;
     --text-light: #ffffff;
-    --border-color: #dfe6f1;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+
+    --mouse-x: 50%;
+    --mouse-y: 50%;
 }
 
-/* Dark Mode Variables */
+/* Dark Mode Variables (updated for new design) */
 :root.dark-mode {
     --primary-dark: #121212;
     --primary-light: #1e1e1e;
     --accent-gold: #d4af37;
-    --background-light: #2c2c2c;
+    --background-dark: #121212;
     --text-dark: #f0f0f0;
-    --text-light: #121212;
+    --text-light: #1e1e1e;
     --border-color: #444;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -28,38 +35,63 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--background-light);
+    background-color: var(--background-dark);
     color: var(--text-dark);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+    position: relative;
 }
 
-.main-container {
+/* New mouse-tracking glow effect */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(162, 116, 255, 0.2) 0%, transparent 50%);
+    opacity: 0.8;
+    z-index: -1;
+    pointer-events: none;
+    transition: background 0.1s linear;
+}
+
+.glass-card {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    overflow: hidden;
     width: 100%;
     max-width: 900px;
     min-height: 600px;
-    background-color: var(--text-light);
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    display: flex;
-    overflow: hidden;
     transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
 }
 
 .brand-panel {
     width: 35%;
-    background: var(--primary-dark);
-    color: var(--text-light);
+    background: transparent;
+    color: var(--text-dark);
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 .brand-panel .logo {
@@ -89,13 +121,21 @@ body {
 .content-panel {
     width: 65%;
     padding: 40px;
+    background-color: var(--glass-bg);
+    transition: background-color 0.3s ease;
+    border-left: 1px solid var(--glass-border);
+}
+
+.theme-switch-container {
+    text-align: right;
+    margin-bottom: 20px;
 }
 
 h2 {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 30px;
-    color: var(--primary-dark);
+    color: var(--text-dark);
     transition: color 0.3s ease;
 }
 
@@ -119,15 +159,15 @@ h2 {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
-    background-color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.05);
     color: var(--text-dark);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-light);
-    box-shadow: 0 0 0 3px rgba(29, 58, 117, 0.1);
+    border-color: rgba(162, 116, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(162, 116, 255, 0.1);
 }
 
 .form-group textarea {
@@ -171,17 +211,13 @@ button:disabled {
 }
 
 .button-secondary {
-    background-color: #e9eef7;
-    color: var(--primary-dark);
-    margin-top: 15px;
+    background-color: transparent;
+    color: var(--text-dark);
+    margin-top: 0;
+    border: 1px solid var(--border-color);
 }
 .button-secondary:hover {
-    background-color: #d8e0ed;
-}
-/* Dark mode secondary button styles */
-:root.dark-mode .button-secondary {
-    background-color: #3e3e3e;
-    color: #f0f0f0;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .hidden {
@@ -209,7 +245,7 @@ button:disabled {
 .stat-value {
     font-size: 24px;
     font-weight: 600;
-    color: var(--primary-dark);
+    color: var(--text-dark);
     transition: color 0.3s ease;
 }
 .progress-bar-container {
@@ -228,7 +264,7 @@ button:disabled {
     transition: width 0.5s ease-out;
 }
 .status-log {
-    background-color: #f8f9fa;
+    background-color: transparent;
     border: 1px solid var(--border-color);
     padding: 15px;
     border-radius: 6px;
@@ -237,9 +273,4 @@ button:disabled {
     font-size: 14px;
     transition: background-color 0.3s ease, color 0.3s ease;
     color: var(--text-dark);
-}
-/* Dark mode status log styles */
-:root.dark-mode .status-log {
-    background-color: #1e1e1e;
-    color: #f0f0f0;
 }

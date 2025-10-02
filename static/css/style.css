@@ -1,9 +1,9 @@
 /* static/css/style.css */
 :root {
-    --primary-dark: #1f375f;
-    --primary-light: #1d3a75;
+    --primary-dark: #121212;
+    --primary-light: #1e1e1e;
     --accent-gold: #d4af37;
-    --background-dark: #1a1a2e;
+    --background-dark: #0f0f1c; /* A darker shade */
     --text-dark: #f0f0f0;
     --text-light: #ffffff;
     --border-color: rgba(255, 255, 255, 0.1);
@@ -14,7 +14,7 @@
     --mouse-y: 50%;
 }
 
-/* Dark Mode Variables (updated for new design) */
+/* Dark Mode Variables */
 :root.dark-mode {
     --primary-dark: #121212;
     --primary-light: #1e1e1e;
@@ -46,7 +46,7 @@ body {
     position: relative;
 }
 
-/* New mouse-tracking glow effect */
+/* New mouse-tracking glow effect with smaller radius */
 body::before {
     content: '';
     position: absolute;
@@ -54,7 +54,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(162, 116, 255, 0.2) 0%, transparent 50%);
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(162, 116, 255, 0.2) 0%, transparent 20%);
     opacity: 0.8;
     z-index: -1;
     pointer-events: none;
@@ -129,6 +129,17 @@ body::before {
 .theme-switch-container {
     text-align: right;
     margin-bottom: 20px;
+    user-select: none;
+}
+#theme-toggle-text {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+#theme-toggle-text:hover {
+    opacity: 1;
 }
 
 h2 {
@@ -273,4 +284,32 @@ button:disabled {
     font-size: 14px;
     transition: background-color 0.3s ease, color 0.3s ease;
     color: var(--text-dark);
+}
+
+/* --- Media Queries for Screen Friendliness --- */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+    .glass-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+    .main-container {
+        flex-direction: column;
+    }
+    .brand-panel,
+    .content-panel {
+        width: 100%;
+        border-left: none;
+        border-bottom: 1px solid var(--glass-border);
+    }
+    .content-panel {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        padding-top: 20px;
+    }
+    .theme-switch-container {
+        text-align: left;
+    }
 }

@@ -7,11 +7,10 @@ SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 TRACKING_SERVER_DOMAIN = "http://YOUR_SERVER_IP_OR_DOMAIN:5000"
 
-# --- MODIFIED: Function now accepts 'is_catch_all' ---
-def send_single_email(recipient, sender, subject_template, body_template, is_catch_all):
+# --- MODIFIED: Function no longer accepts 'is_catch_all' ---
+def send_single_email(recipient, sender, subject_template, body_template):
     """
-    Sends a single email and returns a dictionary with the result,
-    including whether the domain is a catch-all.
+    Sends a single email and returns a dictionary with the result.
     """
     sender_email = sender['email']
     sender_password = sender['password']
@@ -48,12 +47,11 @@ def send_single_email(recipient, sender, subject_template, body_template, is_cat
         reason = str(e)
         logging.error(f"Failed to send to {recipient_email}: {reason}")
     
-    # --- MODIFIED: Added 'catch_all' to the returned dictionary ---
+    # --- MODIFIED: Removed 'catch_all' from the returned dictionary ---
     return {
         'recipient_email': recipient_email,
         'sender_email': sender_email,
         'timestamp': timestamp,
-        'catch_all': is_catch_all, # <-- New column
         'status': status,
         'reason': reason
     }

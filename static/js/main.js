@@ -1,6 +1,12 @@
 // static/js/main.js
 document.addEventListener('DOMContentLoaded', function () {
-    // --- NEW: Theme switch logic ---
+    // --- NEW: Mouse tracking for light effect ---
+    document.body.addEventListener('mousemove', (e) => {
+        document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+        document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
+    // --- EXISTING: Theme switch logic ---
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const html = document.documentElement;
 

@@ -1,23 +1,9 @@
 // static/js/main.js
 document.addEventListener('DOMContentLoaded', function () {
-    // --- NEW: Mouse tracking for light effect ---
+    // --- Mouse tracking for light effect ---
     document.body.addEventListener('mousemove', (e) => {
         document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
         document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
-
-    // --- EXISTING: Theme switch logic ---
-    const themeToggleText = document.getElementById('theme-toggle-text');
-    const html = document.documentElement;
-
-    themeToggleText.addEventListener('click', () => {
-        if (html.classList.contains('dark-mode')) {
-            html.classList.remove('dark-mode');
-            themeToggleText.textContent = 'Switch to Dark Mode';
-        } else {
-            html.classList.add('dark-mode');
-            themeToggleText.textContent = 'Switch to Light Mode';
-        }
     });
 
     const formView = document.getElementById('form-view');
@@ -90,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
             progressPercent.textContent = progress + '%';
             statusMessage.textContent = `(${i + 1}/${totalRecipients}) Processing: ${recipient.Email}`;
 
-            // --- NEW: Start a timer before the API call ---
             const startTime = new Date().getTime();
 
             try {
@@ -108,9 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await response.json();
                 finalReportData.push(result);
 
-                // Check for server-side success or failure (status 200)
                 if (response.ok) {
-                    // Check the 'status' field in the JSON payload
                     if (result.status === 'Success') {
                         successCount++;
                         successCounter.textContent = successCount;
@@ -128,19 +111,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // --- NEW: Calculate the remaining delay ---
             if (i < totalRecipients - 1) {
-                // Calculate how long the verification/send process took
                 const endTime = new Date().getTime();
                 const timeElapsed = endTime - startTime;
 
-                // Determine the target delay (20 to 30 seconds)
                 const targetDelay = 20000 + Math.random() * 10000;
 
-                // Calculate how much *more* we need to wait
                 const remainingDelay = targetDelay - timeElapsed;
 
-                // Only wait if the process took less time than our target delay
                 if (remainingDelay > 0) {
                     statusMessage.textContent += ` | Waiting for ${Math.round(remainingDelay / 1000)}s...`;
                     await new Promise(resolve => setTimeout(resolve, remainingDelay));
